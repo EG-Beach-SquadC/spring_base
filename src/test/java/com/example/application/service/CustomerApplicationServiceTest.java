@@ -18,18 +18,19 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @ExtendWith(MockitoExtension.class)
 class CustomerApplicationServiceTest {
 
-    @InjectMocks
-    private CustomerApplicationService customerApplicationService;
+  @InjectMocks
+  private CustomerApplicationService customerApplicationService;
 
-    @Mock
-    private CustomerRepository customerRepository;
+  @Mock
+  private CustomerRepository customerRepository;
 
-    @Test
-    void name() {
-        when(customerRepository.findById("1")).thenReturn(new Customer("1", "test", LocalDateTime.now(), LocalDateTime.now()));
+  @Test
+  void name() {
+    when(customerRepository.findById("1"))
+        .thenReturn(new Customer("1", "test", LocalDateTime.now(), LocalDateTime.now()));
 
-        CustomerDto customerDto = customerApplicationService.findById("1");
+    CustomerDto customerDto = customerApplicationService.findById("1");
 
-        Assertions.assertEquals(customerDto.getName(), "test");
-    }
+    Assertions.assertEquals(customerDto.getName(), "test");
+  }
 }
