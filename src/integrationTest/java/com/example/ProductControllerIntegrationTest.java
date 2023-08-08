@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class ProductControllerIntegrationtest extends BaseIntegrationTest {
+public class ProductControllerIntegrationTest extends BaseIntegrationTest {
   @Test
   @DataSet("product.yaml")
   public void find_all_products_successfully() {
