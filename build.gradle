@@ -54,14 +54,10 @@ dependencies {
     runtimeOnly('mysql:mysql-connector-java')
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("com.tngtech.archunit:archunit:0.17.0")
-    testImplementation("com.tngtech.archunit:archunit-junit4:0.17.0")
-    testImplementation("io.rest-assured:spring-mock-mvc:4.1.2")
-    testImplementation("com.github.springtestdbunit:spring-test-dbunit:1.3.0")
-    testImplementation("org.dbunit:dbunit:2.6.0")
-    testImplementation("org.jyaml:jyaml:1.3")
-    testImplementation("org.powermock:powermock-module-junit4:2.0.7")
-    testImplementation("org.powermock:powermock-api-mockito2:2.0.7")
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation("io.rest-assured:spring-mock-mvc")
+    testImplementation 'com.github.database-rider:rider-junit5:1.39.0'
+    testImplementation 'com.h2database:h2:1.4.200'
 }
 
 bootRun {

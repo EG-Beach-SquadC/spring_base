@@ -22,7 +22,7 @@ task integrationTest(type: Test) {
 }
 
 integrationTest {
-    jvmArgs '-Dspring.profiles.active=test'
+    useJUnitPlatform()
 }
 
 check.dependsOn integrationTest

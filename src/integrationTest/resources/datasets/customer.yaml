@@ -1,0 +1,5 @@
+customer:
+  - id: "1"
+    name: "第一个大客户"
+    create_time: "2022-12-11 21:31:14"
+    update_time: "2022-12-11 21:31:14"
