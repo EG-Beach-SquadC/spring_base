@@ -1,0 +1,19 @@
+product:
+  - id: a362e6ed-c161-4982-9858-0939f21c7c3b
+    name: product-1
+    price: 10.00
+    status: VALID
+    create_time: 2022-03-09T14:09:18
+    update_time: 2022-03-09T14:09:18
+  - id: 818b8686-cc26-4ddf-ba88-95667ae4c6b7
+    name: product-2
+    price: 10.00
+    status: VALID
+    create_time: 2022-03-09T14:09:18
+    update_time: 2022-03-09T14:09:18
+  - id: cdd7680b-a9f8-4f39-acfd-a4084ac456fb
+    name: product-3
+    price: 10.00
+    status: INVALID
+    create_time: 2022-03-09T14:09:18
+    update_time: 2022-03-09T14:09:18

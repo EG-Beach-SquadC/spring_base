@@ -36,7 +36,6 @@ class ProductApplicationServiceTest {
         () -> assertEquals("id-1", productDtos.get(0).getId()),
         () -> assertEquals("id-2", productDtos.get(1).getId()),
         () -> assertEquals("id-3", productDtos.get(2).getId()));
-
   }
 
 
