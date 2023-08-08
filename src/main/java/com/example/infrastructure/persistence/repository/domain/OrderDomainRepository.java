@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class OrderDomainRepository {
-    private final JpaOrderRepository jpaOrderRepository;
-    private final OrderDataMapper mapper = OrderDataMapper.mapper;
+  private final JpaOrderRepository jpaOrderRepository;
+  private final OrderDataMapper mapper = OrderDataMapper.mapper;
 
 }

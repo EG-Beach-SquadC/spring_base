@@ -11,20 +11,17 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Order {
-    private String id;
+  private String id;
 
-    private String customerId;
+  private String customerId;
 
-    private Double total;
+  private Double total;
 
-    private List<Product> products;
+  private List<Product> products;
 
-    private OrderStatus status;
+  private OrderStatus status;
 
-    private LocalDateTime createTime;
+  private LocalDateTime createTime;
 
-    private LocalDateTime updateTime;
-}
-class Product {
-
+  private LocalDateTime updateTime;
 }
