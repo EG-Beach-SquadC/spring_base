@@ -1,7 +1,7 @@
 package com.example.infrastructure.persistence.repository;
 
-import com.example.common.base.JpaAndQueryDslExecutor;
 import com.example.infrastructure.persistence.entity.CustomerPo;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface JpaCustomerRepository extends JpaAndQueryDslExecutor<CustomerPo, String> {
+public interface JpaCustomerRepository extends JpaRepository<CustomerPo, String> {
 }
