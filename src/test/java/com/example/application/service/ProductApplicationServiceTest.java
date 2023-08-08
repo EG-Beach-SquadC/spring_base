@@ -16,7 +16,7 @@ import static com.example.constants.ProductFixture.PRODUCT2;
 import static com.example.constants.ProductFixture.PRODUCT3;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ProductApplicationServiceTest {
