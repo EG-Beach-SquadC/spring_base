@@ -12,5 +12,6 @@ import lombok.Setter;
 public class CustomerDto {
   private String id;
 
+
   private String name;
 }
