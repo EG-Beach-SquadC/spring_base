@@ -17,6 +17,6 @@ public class ProductController {
 
   @GetMapping
   public List<ProductDto> findAll() {
-    return null;
+    return productApplicationService.findAll();
   }
 }
