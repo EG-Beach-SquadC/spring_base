@@ -1,16 +1,20 @@
 package com.example.presentation.vo;
 
+import com.example.domain.entity.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
+import java.math.BigDecimal;
+
 @Setter
 @Getter
-public class CustomerDto {
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProductDto {
   private String id;
-
   private String name;
+  private BigDecimal price;
+  private ProductStatus status;
 }
