@@ -12,17 +12,17 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Order {
-    private String id;
+  private String id;
 
-    private String customerId;
+  private String customerId;
 
-    private BigDecimal total;
+  private BigDecimal total;
 
-    private List<Product> products;
+  private List<Product> products;
 
-    private OrderStatus status;
+  private OrderStatus status;
 
-    private LocalDateTime createTime;
+  private LocalDateTime createTime;
 
-    private LocalDateTime updateTime;
+  private LocalDateTime updateTime;
 }

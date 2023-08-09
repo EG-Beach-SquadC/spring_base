@@ -14,9 +14,9 @@ import java.util.List;
 @Getter
 public class OrderRequestDto {
 
-    @NotBlank(message = "Customer ID cannot be null")
-    private String customerId;
+  @NotBlank(message = "Customer ID cannot be null")
+  private String customerId;
 
-    @NotEmpty(message = "Products cannot be empty")
-    private List<Product> products;
+  @NotEmpty(message = "Products cannot be empty")
+  private List<Product> products;
 }

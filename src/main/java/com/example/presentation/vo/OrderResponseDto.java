@@ -10,5 +10,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OrderResponseDto {
-    private String id;
+  private String id;
 }

@@ -16,18 +16,17 @@ import static org.mapstruct.factory.Mappers.getMapper;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface OrderDataMapper {
-    OrderDataMapper mapper = getMapper(OrderDataMapper.class);
+  OrderDataMapper mapper = getMapper(OrderDataMapper.class);
+  ObjectMapper objectMapper = new ObjectMapper();
 
-    @Mapping(target = "products", source = "products")
-    Order toDo(OrderPo orderPo);
+  @Mapping(target = "products", expression = "java(toProducts(orderPo))")
+  Order toDo(OrderPo orderPo);
 
-    default List<Product> mapProducts(String products) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            return objectMapper.readValue(products, new TypeReference<List<Product>>() {
-            });
-        } catch (IOException e) {
-            return null;
-        }
+  default List<Product> toProducts(OrderPo orderPo) {
+    try {
+      return objectMapper.readValue(orderPo.getProducts(), new TypeReference<>() {});
+    } catch (IOException e) {
+      return null;
     }
+  }
 }

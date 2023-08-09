@@ -13,6 +13,8 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static javax.persistence.EnumType.STRING;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,24 +22,25 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "order")
 public class OrderPo {
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
+  @Id
+  @GeneratedValue(generator = "system-uuid")
+  @GenericGenerator(name = "system-uuid", strategy = "uuid")
+  private String id;
 
-    private String customerId;
+  private String customerId;
 
-    private BigDecimal total;
+  private BigDecimal total;
 
-    @Column(columnDefinition = "TEXT")
-    private String products;
+  @Column(columnDefinition = "TEXT")
+  private String products;
 
-    private OrderStatus status;
+  @Enumerated(value = STRING)
+  private OrderStatus status;
 
-    @CreatedDate
-    private LocalDateTime createTime;
+  @CreatedDate
+  private LocalDateTime createTime;
 
-    @LastModifiedDate
-    private LocalDateTime updateTime;
+  @LastModifiedDate
+  private LocalDateTime updateTime;
 
 }
