@@ -12,7 +12,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        globally_quoted_identifiers: true
 
   flyway:
     enabled: true
