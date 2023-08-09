@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `order`
+CREATE TABLE IF NOT EXISTS `customer_order`
 (
   `id`                   VARCHAR(32)    NOT NULL,
   `customer_id`          VARCHAR(32)    NOT NULL,
