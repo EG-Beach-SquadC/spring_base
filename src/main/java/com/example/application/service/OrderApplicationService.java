@@ -25,8 +25,12 @@ public class OrderApplicationService {
     return null;
   }
 
-  public List<OrderDto> findAll(String customerId) {
-    return orderRepository.findAll(customerId).stream().map(orderDtoMapper::toDto)
+  public List<OrderDto> retrieveOrders(String customerId) {
+    return orderRepository.findAllByCustomerId(customerId).stream().map(orderDtoMapper::toDto)
         .collect(Collectors.toList());
+  }
+
+  public OrderDto retrieveOrder(String orderId) {
+    return orderDtoMapper.toDto(orderRepository.findByOrderId(orderId));
   }
 }

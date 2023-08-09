@@ -8,5 +8,7 @@ import java.util.List;
 public interface OrderRepository {
   Order createOrder(OrderPo orderPo);
 
-  List<Order> findAll(String customerId);
+  List<Order> findAllByCustomerId(String customerId);
+
+  Order findByOrderId(String orderId);
 }

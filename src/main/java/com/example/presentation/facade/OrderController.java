@@ -7,6 +7,7 @@ import com.example.presentation.vo.OrderResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,12 @@ public class OrderController {
   }
 
   @GetMapping
-  public List<OrderDto> findAll(@RequestParam String customerId) {
-    return orderApplicationService.findAll(customerId);
+  public List<OrderDto> retrieveOrders(@RequestParam String customerId) {
+    return orderApplicationService.retrieveOrders(customerId);
+  }
+
+  @GetMapping("/{orderId}")
+  public OrderDto retrieveOrder(@PathVariable String orderId) {
+    return orderApplicationService.retrieveOrder(orderId);
   }
 }

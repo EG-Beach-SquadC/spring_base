@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.common.exception.BaseExceptionCode.NOT_FOUND_CUSTOMER;
+import static com.example.common.exception.NotFoundException.notFoundException;
+
 @Component
 @AllArgsConstructor
 public class OrderDomainRepository implements OrderRepository {
@@ -23,8 +26,14 @@ public class OrderDomainRepository implements OrderRepository {
   }
 
   @Override
-  public List<Order> findAll(String customerId) {
+  public List<Order> findAllByCustomerId(String customerId) {
     return jpaOrderRepository.findAllByCustomerId(customerId).stream().map(mapper::toDo)
         .collect(Collectors.toList());
+  }
+
+  @Override
+  public Order findByOrderId(String orderId) {
+    return mapper.toDo(
+        jpaOrderRepository.findById(orderId).orElseThrow(notFoundException(NOT_FOUND_CUSTOMER)));
   }
 }

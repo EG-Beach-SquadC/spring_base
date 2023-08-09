@@ -54,9 +54,9 @@ class OrderApplicationServiceTest {
 
   @Test
   void should_return_all_products_when_products_exist_in_repo() {
-    when(orderRepository.findAll(CUSTOMER_ID)).thenReturn(List.of(ORDER1, ORDER2));
+    when(orderRepository.findAllByCustomerId(CUSTOMER_ID)).thenReturn(List.of(ORDER1, ORDER2));
 
-    List<OrderDto> orderDtos = orderApplicationService.findAll(CUSTOMER_ID);
+    List<OrderDto> orderDtos = orderApplicationService.retrieveOrders(CUSTOMER_ID);
 
     assertAll(() -> assertEquals(2, orderDtos.size()),
         () -> assertEquals("id-1", orderDtos.get(0).getId()),
