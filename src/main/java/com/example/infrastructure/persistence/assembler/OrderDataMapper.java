@@ -9,7 +9,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
-import java.io.IOException;
 import java.util.List;
 
 import static org.mapstruct.factory.Mappers.getMapper;
@@ -25,7 +24,7 @@ public interface OrderDataMapper {
   default List<Product> toProducts(OrderPo orderPo) {
     try {
       return objectMapper.readValue(orderPo.getProducts(), new TypeReference<>() {});
-    } catch (IOException e) {
+    } catch (Exception e) {
       return null;
     }
   }

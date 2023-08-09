@@ -10,9 +10,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static com.example.constants.ProductFixture.CUSTOMER_ID;
-import static com.example.constants.ProductFixture.ORDER1;
-import static com.example.constants.ProductFixture.ORDER2;
+
+import static com.example.constants.OrderFixture.CUSTOMER_ID;
+import static com.example.constants.OrderFixture.ORDER1;
+import static com.example.constants.OrderFixture.ORDER2;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;

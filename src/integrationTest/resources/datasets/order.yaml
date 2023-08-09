@@ -1,0 +1,39 @@
+customer_order:
+  - id: 9e22c739-3656-446b-96c1-5a8a13e2771c
+    customer_id: fdf2f34e-6be2-487e-ac0d-56823f267b35
+    products: [
+      {
+        "id": "1",
+        "name": "test1",
+        "price": 1.00,
+        "status": "VALID",
+      },
+      {
+        "id": "2",
+        "name": "test2",
+        "price": 1.00,
+        "status": "VALID",
+      } ]
+    total: 2.00
+    status: "CREATED"
+    create_time: 2020-11-23T00:00:00Z
+    update_time: 2020-11-23T00:00:00Z
+  - id: c0a8a4c8-5a51-46cc-9db0-f4a18d743ba8
+    customer_id: fdf2f34e-6be2-487e-ac0d-56823f267b35
+    products: [
+      {
+        "id": "1",
+        "name": "test1",
+        "price": 1.00,
+        "status": "VALID",
+      },
+      {
+        "id": "2",
+        "name": "test2",
+        "price": 1.00,
+        "status": "VALID",
+      } ]
+    total: 2.00
+    status: "CREATED"
+    create_time: 2020-11-23T00:00:00Z
+    update_time: 2020-11-23T00:00:00Z
