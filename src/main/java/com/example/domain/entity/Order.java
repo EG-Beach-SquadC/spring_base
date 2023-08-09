@@ -2,6 +2,7 @@ package com.example.domain.entity;
 
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,17 +12,17 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Order {
-  private String id;
+    private String id;
 
-  private String customerId;
+    private String customerId;
 
-  private Double total;
+    private BigDecimal total;
 
-  private List<Product> products;
+    private List<Product> products;
 
-  private OrderStatus status;
+    private OrderStatus status;
 
-  private LocalDateTime createTime;
+    private LocalDateTime createTime;
 
-  private LocalDateTime updateTime;
+    private LocalDateTime updateTime;
 }
