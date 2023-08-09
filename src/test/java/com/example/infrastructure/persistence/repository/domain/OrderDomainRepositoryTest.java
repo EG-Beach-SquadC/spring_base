@@ -1,5 +1,6 @@
 package com.example.infrastructure.persistence.repository.domain;
 
+import com.example.common.exception.NotFoundException;
 import com.example.domain.entity.Order;
 import com.example.infrastructure.persistence.assembler.OrderDataMapper;
 import com.example.infrastructure.persistence.repository.JpaOrderRepository;
@@ -10,12 +11,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.example.constants.OrderFixture.CUSTOMER_ID;
 import static com.example.constants.OrderFixture.ORDER_PO1;
 import static com.example.constants.OrderFixture.ORDER_PO2;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -54,6 +57,25 @@ class OrderDomainRepositoryTest {
     assertTrue(orders.isEmpty());
 
     verify(jpaOrderRepository, times(1)).findAllByCustomerId(CUSTOMER_ID);
+  }
+
+  @Test
+  void should_return_corresponding_order_when_order_exists() {
+    String orderId = "id-1";
+    when(jpaOrderRepository.findById(orderId)).thenReturn(Optional.of(ORDER_PO1));
+
+    Order order = orderDomainRepository.findByOrderId(orderId);
+
+    assertEquals("id-1", order.getId());
+    verify(jpaOrderRepository, times(1)).findById(orderId);
+  }
+
+  @Test
+  void should_throw_not_found_exception_when_order_not_exist() {
+    String orderId = "id-1";
+    when(jpaOrderRepository.findById(orderId)).thenReturn(Optional.empty());
+
+    assertThrows(NotFoundException.class, () -> orderDomainRepository.findByOrderId(orderId));
   }
 
 
