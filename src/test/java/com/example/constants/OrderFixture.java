@@ -20,6 +20,12 @@ public class OrderFixture {
   public final static OrderPo ORDER_PO2 = new OrderPo("id-2", CUSTOMER_ID, BigDecimal.ONE, null,
       CREATED, ofEpochSecond(1691377675, 0, UTC), ofEpochSecond(1691377675, 0, UTC));
 
+  public static final String PRODUCTS_DETAIL =
+      "[{\"id\": 1, \"name\": \"test\", \"price\": 1.0, \"amount\": 1}, {\"id\": 2, \"name\": \"test\", \"price\": 1.0, \"amount\": 1}]";
+  public final static OrderPo ORDER_PO3 =
+      new OrderPo("id-3", CUSTOMER_ID, BigDecimal.ONE, PRODUCTS_DETAIL, CREATED,
+          ofEpochSecond(1691377675, 0, UTC), ofEpochSecond(1691377675, 0, UTC));
+
   public final static Order ORDER1 = new Order("id-1", "customer-1", BigDecimal.ONE, null, CREATED,
       ofEpochSecond(1691377675, 0, UTC), ofEpochSecond(1691377675, 0, UTC));
 

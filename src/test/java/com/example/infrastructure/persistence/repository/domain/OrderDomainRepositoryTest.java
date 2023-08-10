@@ -2,6 +2,7 @@ package com.example.infrastructure.persistence.repository.domain;
 
 import com.example.common.exception.NotFoundException;
 import com.example.domain.entity.Order;
+import com.example.domain.entity.OrderedProduct;
 import com.example.infrastructure.persistence.assembler.OrderDataMapper;
 import com.example.infrastructure.persistence.repository.JpaOrderRepository;
 import org.junit.jupiter.api.Test;
@@ -54,12 +55,23 @@ class OrderDomainRepositoryTest {
 
   @Test
   void should_return_corresponding_order_when_order_exists() {
-    String orderId = "id-1";
-    when(jpaOrderRepository.findById(orderId)).thenReturn(Optional.of(ORDER_PO1));
+    String orderId = "id-3";
+    when(jpaOrderRepository.findById(orderId)).thenReturn(Optional.of(ORDER_PO3));
 
     Order order = orderDomainRepository.findByOrderId(orderId);
 
-    assertEquals("id-1", order.getId());
+    OrderedProduct orderedProduct1 = order.getProducts().get(0);
+    OrderedProduct orderedProduct2 = order.getProducts().get(1);
+
+    assertAll(() -> assertEquals("id-3", order.getId()),
+        () -> assertEquals("1", orderedProduct1.getId()),
+        () -> assertEquals("test", orderedProduct1.getName()),
+        () -> assertEquals(1.0, orderedProduct1.getPrice().doubleValue()),
+        () -> assertEquals(1, orderedProduct1.getAmount()),
+        () -> assertEquals("2", orderedProduct2.getId()),
+        () -> assertEquals("test", orderedProduct2.getName()),
+        () -> assertEquals(1.0, orderedProduct2.getPrice().doubleValue()),
+        () -> assertEquals(1, orderedProduct2.getAmount()));
     verify(jpaOrderRepository, times(1)).findById(orderId);
   }
 
