@@ -13,16 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.constants.OrderFixture.CUSTOMER_ID;
-import static com.example.constants.OrderFixture.ORDER_PO1;
-import static com.example.constants.OrderFixture.ORDER_PO2;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static com.example.constants.OrderFixture.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -80,7 +70,6 @@ class OrderDomainRepositoryTest {
 
     assertThrows(NotFoundException.class, () -> orderDomainRepository.findByOrderId(orderId));
   }
-
 
   @Test
   void should_save_order_successfully() {

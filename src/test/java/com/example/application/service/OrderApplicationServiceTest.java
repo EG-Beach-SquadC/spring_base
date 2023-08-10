@@ -39,31 +39,6 @@ class OrderApplicationServiceTest {
   private ProductRepository productRepository;
 
   @Test
-  void should_return_response_dto_successfully() {
-    // // given
-    // Product product1 = Product.builder().id("1").name("product
-    // 1").price(BigDecimal.ONE).status(ProductStatus.VALID).build();
-    // Product product2 = Product.builder().id("2").name("product
-    // 2").price(BigDecimal.ONE).status(ProductStatus.VALID).build();
-    // List<Product> products = List.of(product1, product2);
-    // OrderRequestDto orderRequestDto =
-    // OrderRequestDto.builder().customerId("1").products(products).build();
-    // when(orderRepository.createOrder(OrderDtoMapper.MAPPER.toPo(orderRequestDto)))
-    // .thenReturn(Order.builder().id("1")
-    // .customerId(orderRequestDto.getCustomerId())
-    // .products(products)
-    // .total(BigDecimal.valueOf(2.00))
-    // .status(OrderStatus.CREATED).build());
-    //
-    // // when
-    // OrderResponseDto order = orderService.createOrder(orderRequestDto);
-    //
-    // // then
-    // Assertions.assertEquals(order, orderRequestDto);
-
-  }
-
-  @Test
   void should_return_all_orders_when_orders_exist_in_repo() {
     when(orderRepository.findAllByCustomerId(CUSTOMER_ID)).thenReturn(List.of(ORDER1, ORDER2));
 
