@@ -11,9 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static com.example.constants.ProductFixture.PRODUCT_PO1;
-import static com.example.constants.ProductFixture.PRODUCT_PO2;
-import static com.example.constants.ProductFixture.PRODUCT_PO3;
+import static com.example.constants.ProductFixture.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 

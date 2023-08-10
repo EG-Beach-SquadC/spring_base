@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -21,6 +22,7 @@ import static javax.persistence.EnumType.STRING;
 @AllArgsConstructor
 @Entity
 @Table(name = "customer_order")
+@EntityListeners(AuditingEntityListener.class)
 public class OrderPo {
   @Id
   @GeneratedValue(generator = "system-uuid")

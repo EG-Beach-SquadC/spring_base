@@ -6,7 +6,7 @@ import com.example.infrastructure.persistence.entity.OrderPo;
 import java.util.List;
 
 public interface OrderRepository {
-  Order createOrder(OrderPo orderPo);
+  Order save(OrderPo orderPo);
 
   List<Order> findAllByCustomerId(String customerId);
 

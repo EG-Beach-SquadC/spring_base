@@ -1,9 +1,12 @@
 package com.example.constants;
 
 import com.example.domain.entity.Order;
+import com.example.domain.entity.OrderedProduct;
 import com.example.infrastructure.persistence.entity.OrderPo;
+import com.example.presentation.vo.OrderRequestDto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static com.example.domain.entity.OrderStatus.CREATED;
 import static java.time.LocalDateTime.ofEpochSecond;
@@ -22,4 +25,7 @@ public class OrderFixture {
 
   public final static Order ORDER2 = new Order("id-2", "customer-1", BigDecimal.ONE, null, CREATED,
       ofEpochSecond(1691377675, 0, UTC), ofEpochSecond(1691377675, 0, UTC));
+
+  public final static OrderRequestDto ORDER_REQUEST_1 = new OrderRequestDto("test",
+      List.of(new OrderedProduct("id-1", "customer-1", BigDecimal.ONE, 1)));
 }

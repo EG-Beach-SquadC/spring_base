@@ -1,7 +1,7 @@
 package com.example.infrastructure.persistence.assembler;
 
 import com.example.domain.entity.Order;
-import com.example.domain.entity.Product;
+import com.example.domain.entity.OrderedProduct;
 import com.example.infrastructure.persistence.entity.OrderPo;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,12 +18,23 @@ public interface OrderDataMapper {
   OrderDataMapper mapper = getMapper(OrderDataMapper.class);
   ObjectMapper objectMapper = new ObjectMapper();
 
-  @Mapping(target = "products", expression = "java(toProducts(orderPo))")
+  @Mapping(target = "products", expression = "java(toProductsList(orderPo))")
   Order toDo(OrderPo orderPo);
 
-  default List<Product> toProducts(OrderPo orderPo) {
+  default List<OrderedProduct> toProductsList(OrderPo orderPo) {
     try {
       return objectMapper.readValue(orderPo.getProducts(), new TypeReference<>() {});
+    } catch (Exception e) {
+      return null;
+    }
+  }
+
+  @Mapping(target = "products", expression = "java(toProductsString(order))")
+  OrderPo toPo(Order order);
+
+  default String toProductsString(Order order) {
+    try {
+      return objectMapper.writeValueAsString(order.getProducts());
     } catch (Exception e) {
       return null;
     }

@@ -23,6 +23,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static com.example.constants.OrderFixture.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class OrderDomainRepositoryTest {
@@ -79,5 +82,13 @@ class OrderDomainRepositoryTest {
   }
 
 
+  @Test
+  void should_save_order_successfully() {
+    when(jpaOrderRepository.save(ORDER_PO1)).thenReturn(ORDER_PO1);
+
+    orderDomainRepository.save(ORDER_PO1);
+
+    verify(jpaOrderRepository, times(1)).save(ORDER_PO1);
+  }
 
 }

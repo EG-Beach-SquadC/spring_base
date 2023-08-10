@@ -1,7 +1,10 @@
 package com.example.application.service;
 
+import com.example.application.assembler.OrderDtoMapper;
 import com.example.domain.repository.OrderRepository;
+import com.example.infrastructure.persistence.assembler.OrderDataMapper;
 import com.example.presentation.vo.OrderDto;
+import com.example.presentation.vo.OrderResponseDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -10,10 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-
-import static com.example.constants.OrderFixture.CUSTOMER_ID;
-import static com.example.constants.OrderFixture.ORDER1;
-import static com.example.constants.OrderFixture.ORDER2;
+import static com.example.constants.OrderFixture.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -24,6 +24,10 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class OrderApplicationServiceTest {
+
+  private final OrderDataMapper dataMapper = OrderDataMapper.mapper;
+
+  private final OrderDtoMapper dtoMapper = OrderDtoMapper.mapper;
 
   @InjectMocks
   private OrderApplicationService orderApplicationService;
@@ -67,6 +71,17 @@ class OrderApplicationServiceTest {
         () -> assertEquals("id-2", orderDtos.get(1).getId()));
   }
 
+  @Test
+  void should_count_total_when_products_provided() {
+
+    when(orderRepository.save(dataMapper.toPo(dtoMapper.requestDtoToDo(ORDER_REQUEST_1))))
+        .thenReturn(ORDER1);
+
+    OrderResponseDto orderResponse = orderApplicationService.createOrder(ORDER_REQUEST_1);
+
+    assertEquals("id-1", orderResponse.getId());
+
+  }
   @Test
   void should_return_corresponding_order_given_valid_order_id() {
     String orderId = "id-1";

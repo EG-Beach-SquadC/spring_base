@@ -1,6 +1,6 @@
 package com.example.presentation.vo;
 
-import com.example.domain.entity.Product;
+import com.example.domain.entity.OrderedProduct;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -18,5 +18,5 @@ public class OrderRequestDto {
   private String customerId;
 
   @NotEmpty(message = "Products cannot be empty")
-  private List<Product> products;
+  private List<OrderedProduct> products;
 }

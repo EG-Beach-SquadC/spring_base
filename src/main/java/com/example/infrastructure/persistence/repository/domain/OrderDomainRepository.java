@@ -21,8 +21,8 @@ public class OrderDomainRepository implements OrderRepository {
   private final OrderDataMapper mapper = OrderDataMapper.mapper;
 
   @Override
-  public Order createOrder(OrderPo orderPo) {
-    return null;
+  public Order save(OrderPo orderPo) {
+    return mapper.toDo(jpaOrderRepository.save(orderPo));
   }
 
   @Override
