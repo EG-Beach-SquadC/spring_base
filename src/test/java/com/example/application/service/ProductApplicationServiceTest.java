@@ -30,7 +30,7 @@ class ProductApplicationServiceTest {
   void should_return_all_products_when_products_exist_in_repo() {
     when(productRepository.findAll()).thenReturn(List.of(PRODUCT1, PRODUCT2, PRODUCT3));
 
-    List<ProductDto> productDtos = productApplicationService.findAll();
+    List<ProductDto> productDtos = productApplicationService.retrieveProducts();
 
     assertAll(() -> assertEquals(3, productDtos.size()),
         () -> assertEquals("id-1", productDtos.get(0).getId()),

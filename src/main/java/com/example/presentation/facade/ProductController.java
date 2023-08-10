@@ -16,7 +16,7 @@ public class ProductController {
   private final ProductApplicationService productApplicationService;
 
   @GetMapping
-  public List<ProductDto> findAll() {
-    return productApplicationService.findAll();
+  public List<ProductDto> retrieveProducts() {
+    return productApplicationService.retrieveProducts();
   }
 }

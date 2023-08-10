@@ -16,7 +16,7 @@ public class ProductApplicationService {
   private final ProductRepository productRepository;
   private final ProductDtoMapper mapper = ProductDtoMapper.MAPPER;
 
-  public List<ProductDto> findAll() {
+  public List<ProductDto> retrieveProducts() {
     return productRepository.findAll().stream().map(mapper::toProductDto)
         .collect(Collectors.toList());
   }
