@@ -3,7 +3,6 @@ package com.example.application.service;
 import com.example.application.assembler.OrderDtoMapper;
 import com.example.domain.entity.Order;
 import com.example.domain.entity.OrderStatus;
-import com.example.domain.entity.OrderedProduct;
 import com.example.domain.repository.OrderRepository;
 import com.example.domain.repository.ProductRepository;
 import com.example.infrastructure.persistence.assembler.OrderDataMapper;
@@ -31,19 +30,12 @@ public class OrderApplicationService {
 
   public OrderResponseDto createOrder(OrderRequestDto orderRequestDto) {
     Order order = orderDtoMapper.requestDtoToDo(orderRequestDto);
-    BigDecimal total = countTotal(orderRequestDto.getProducts());
+    BigDecimal total = productRepository.countTotal(orderRequestDto.getProducts());
+
     order.setTotal(total);
     order.setStatus(OrderStatus.CREATED);
     return orderDtoMapper.doToResponseDto(orderRepository.save(orderDataMapper.toPo(order)));
   }
-
-  private BigDecimal countTotal(List<OrderedProduct> products) {
-    return products.stream()
-        .map(orderedProduct -> orderedProduct.getPrice()
-            .multiply(BigDecimal.valueOf(orderedProduct.getAmount())))
-        .reduce(BigDecimal.ZERO, BigDecimal::add);
-  }
-
 
   public List<OrderDto> retrieveOrders(String customerId) {
     return orderRepository.findAllByCustomerId(customerId).stream().map(orderDtoMapper::toDto)

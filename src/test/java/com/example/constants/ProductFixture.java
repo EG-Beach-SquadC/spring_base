@@ -1,5 +1,6 @@
 package com.example.constants;
 
+import com.example.domain.entity.OrderedProduct;
 import com.example.domain.entity.Product;
 import com.example.domain.entity.ProductStatus;
 import com.example.infrastructure.persistence.entity.ProductPo;
@@ -22,4 +23,15 @@ public class ProductFixture {
       new ProductPo("id-2", "product-2", BigDecimal.ONE, ProductStatus.VALID, now(), now());
   public final static ProductPo PRODUCT_PO3 =
       new ProductPo("id-3", "product-3", BigDecimal.ONE, ProductStatus.INVALID, now(), now());
+
+  public final static OrderedProduct ORDERED_PRODUCT_1 =
+      new OrderedProduct("id-1", "product-1", null, 1);
+
+
+  public final static OrderedProduct ORDERED_PRODUCT_2 =
+      new OrderedProduct("id-2", "product-2", null, 1);
+
+
+  public final static OrderedProduct ORDERED_PRODUCT_3 =
+      new OrderedProduct("id-3", "product-3", null, 1);
 }

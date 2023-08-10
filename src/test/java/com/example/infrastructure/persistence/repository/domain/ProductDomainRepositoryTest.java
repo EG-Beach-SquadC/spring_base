@@ -1,5 +1,6 @@
 package com.example.infrastructure.persistence.repository.domain;
 
+import com.example.domain.entity.OrderedProduct;
 import com.example.domain.entity.Product;
 import com.example.infrastructure.persistence.assembler.ProductDataMapper;
 import com.example.infrastructure.persistence.repository.JpaProductRepository;
@@ -9,10 +10,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.example.constants.ProductFixture.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,6 +45,16 @@ class ProductDomainRepositoryTest {
     List<Product> products = productDomainRepository.findAll();
 
     assertTrue(products.isEmpty());
+  }
+
+  @Test
+  void should_count_total_when_give_a_product_list() {
+    List<OrderedProduct> orderedProducts = List.of(ORDERED_PRODUCT_1, ORDERED_PRODUCT_2);
+    when(jpaProductRepository.findAllById(any())).thenReturn(List.of(PRODUCT_PO1, PRODUCT_PO2));
+
+    BigDecimal total = productDomainRepository.countTotal(orderedProducts);
+
+    assertEquals(2.00, total.doubleValue());
   }
 
 }
