@@ -28,7 +28,8 @@ class ProductDomainRepositoryTest {
 
   @Test
   void should_return_all_products_when_products_exist_in_db() {
-    when(jpaProductRepository.findAll()).thenReturn(List.of(PRODUCT_PO1, PRODUCT_PO2, PRODUCT_PO3));
+    when(jpaProductRepository.findAll())
+        .thenReturn(List.of(PRODUCT_PO1, PRODUCT_PO2, PRODUCT_PO_INVALID));
 
     List<Product> products = productDomainRepository.findAll();
 
@@ -55,6 +56,33 @@ class ProductDomainRepositoryTest {
     BigDecimal total = productDomainRepository.countTotal(orderedProducts);
 
     assertEquals(2.00, total.doubleValue());
+  }
+
+  @Test
+  void should_throw_exception_when_give_a_product_list_contain_invalid_one() {
+    List<OrderedProduct> orderedProducts = List.of(ORDERED_PRODUCT_1, ORDERED_PRODUCT_INVALID);
+    when(jpaProductRepository.findAllById(any()))
+        .thenReturn(List.of(PRODUCT_PO1, PRODUCT_PO_INVALID));
+
+    assertThrows(RuntimeException.class, () -> productDomainRepository.countTotal(orderedProducts));
+  }
+
+  @Test
+  void should_throw_exception_when_give_a_product_list_contain_invalid_product_id() {
+    List<OrderedProduct> orderedProducts =
+        List.of(ORDERED_PRODUCT_WITH_INVALID_ID, ORDERED_PRODUCT_2);
+    when(jpaProductRepository.findAllById(any())).thenReturn(List.of(PRODUCT_PO2));
+
+    assertThrows(RuntimeException.class, () -> productDomainRepository.countTotal(orderedProducts));
+  }
+
+  @Test
+  void should_throw_exception_when_give_a_product_list_contain_no_price_product() {
+    List<OrderedProduct> orderedProducts = List.of(ORDERED_PRODUCT_1, ORDERED_PRODUCT_2);
+    when(jpaProductRepository.findAllById(any()))
+        .thenReturn(List.of(PRODUCT_PO1, PRODUCT_PO_WITHOUT_PRICE));
+
+    assertThrows(RuntimeException.class, () -> productDomainRepository.countTotal(orderedProducts));
   }
 
 }
