@@ -17,80 +17,79 @@ import static com.example.constants.OrderFixture.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
 class OrderApplicationServiceTest {
 
-  private final OrderDataMapper dataMapper = OrderDataMapper.mapper;
+    private final OrderDataMapper dataMapper = OrderDataMapper.mapper;
 
-  private final OrderDtoMapper dtoMapper = OrderDtoMapper.mapper;
+    private final OrderDtoMapper dtoMapper = OrderDtoMapper.mapper;
 
-  @InjectMocks
-  private OrderApplicationService orderApplicationService;
+    @InjectMocks
+    private OrderApplicationService orderApplicationService;
 
-  @Mock
-  private OrderRepository orderRepository;
+    @Mock
+    private OrderRepository orderRepository;
 
-  @Test
-  void should_return_response_dto_successfully() {
-    // // given
-    // Product product1 = Product.builder().id("1").name("product
-    // 1").price(BigDecimal.ONE).status(ProductStatus.VALID).build();
-    // Product product2 = Product.builder().id("2").name("product
-    // 2").price(BigDecimal.ONE).status(ProductStatus.VALID).build();
-    // List<Product> products = List.of(product1, product2);
-    // OrderRequestDto orderRequestDto =
-    // OrderRequestDto.builder().customerId("1").products(products).build();
-    // when(orderRepository.createOrder(OrderDtoMapper.MAPPER.toPo(orderRequestDto)))
-    // .thenReturn(Order.builder().id("1")
-    // .customerId(orderRequestDto.getCustomerId())
-    // .products(products)
-    // .total(BigDecimal.valueOf(2.00))
-    // .status(OrderStatus.CREATED).build());
-    //
-    // // when
-    // OrderResponseDto order = orderService.createOrder(orderRequestDto);
-    //
-    // // then
-    // Assertions.assertEquals(order, orderRequestDto);
+    @Test
+    void should_return_response_dto_successfully() {
+        // // given
+        // Product product1 = Product.builder().id("1").name("product
+        // 1").price(BigDecimal.ONE).status(ProductStatus.VALID).build();
+        // Product product2 = Product.builder().id("2").name("product
+        // 2").price(BigDecimal.ONE).status(ProductStatus.VALID).build();
+        // List<Product> products = List.of(product1, product2);
+        // OrderRequestDto orderRequestDto =
+        // OrderRequestDto.builder().customerId("1").products(products).build();
+        // when(orderRepository.createOrder(OrderDtoMapper.MAPPER.toPo(orderRequestDto)))
+        // .thenReturn(Order.builder().id("1")
+        // .customerId(orderRequestDto.getCustomerId())
+        // .products(products)
+        // .total(BigDecimal.valueOf(2.00))
+        // .status(OrderStatus.CREATED).build());
+        //
+        // // when
+        // OrderResponseDto order = orderService.createOrder(orderRequestDto);
+        //
+        // // then
+        // Assertions.assertEquals(order, orderRequestDto);
 
-  }
+    }
 
-  @Test
-  void should_return_all_orders_when_orders_exist_in_repo() {
-    when(orderRepository.findAllByCustomerId(CUSTOMER_ID)).thenReturn(List.of(ORDER1, ORDER2));
+    @Test
+    void should_return_all_orders_when_orders_exist_in_repo() {
+        when(orderRepository.findAllByCustomerId(CUSTOMER_ID)).thenReturn(List.of(ORDER1, ORDER2));
 
-    List<OrderDto> orderDtos = orderApplicationService.retrieveOrders(CUSTOMER_ID);
+        List<OrderDto> orderDtos = orderApplicationService.retrieveOrders(CUSTOMER_ID);
 
-    assertAll(() -> assertEquals(2, orderDtos.size()),
-        () -> assertEquals("id-1", orderDtos.get(0).getId()),
-        () -> assertEquals("id-2", orderDtos.get(1).getId()));
-  }
+        assertAll(() -> assertEquals(2, orderDtos.size()),
+                () -> assertEquals("id-1", orderDtos.get(0).getId()),
+                () -> assertEquals("id-2", orderDtos.get(1).getId()));
+    }
 
-  @Test
-  void should_count_total_when_products_provided() {
+    @Test
+    void should_count_total_when_products_provided() {
 
-    when(orderRepository.save(dataMapper.toPo(dtoMapper.requestDtoToDo(ORDER_REQUEST_1))))
-        .thenReturn(ORDER1);
+        when(orderRepository.save(any()))
+                .thenReturn(ORDER1);
 
-    OrderResponseDto orderResponse = orderApplicationService.createOrder(ORDER_REQUEST_1);
+        OrderResponseDto orderResponse = orderApplicationService.createOrder(ORDER_REQUEST_1);
 
-    assertEquals("id-1", orderResponse.getId());
+        assertEquals("id-1", orderResponse.getId());
 
-  }
-  @Test
-  void should_return_corresponding_order_given_valid_order_id() {
-    String orderId = "id-1";
-    when(orderRepository.findByOrderId(orderId)).thenReturn(ORDER1);
+    }
 
-    OrderDto orderDto = orderApplicationService.retrieveOrder(orderId);
+    @Test
+    void should_return_corresponding_order_given_valid_order_id() {
+        String orderId = "id-1";
+        when(orderRepository.findByOrderId(orderId)).thenReturn(ORDER1);
 
-    assertEquals("id-1", orderDto.getId());
-    verify(orderRepository, times(1)).findByOrderId(any());
-  }
+        OrderDto orderDto = orderApplicationService.retrieveOrder(orderId);
+
+        assertEquals("id-1", orderDto.getId());
+        verify(orderRepository, times(1)).findByOrderId(any());
+    }
 
 }
