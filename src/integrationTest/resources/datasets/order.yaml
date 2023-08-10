@@ -6,13 +6,13 @@ customer_order:
         "id": "1",
         "name": "test1",
         "price": 1.00,
-        "status": "VALID",
+        "amount": 1,
       },
       {
         "id": "2",
         "name": "test2",
         "price": 1.00,
-        "status": "VALID",
+        "amount": 1,
       } ]
     total: 2.00
     status: "CREATED"
@@ -25,13 +25,13 @@ customer_order:
         "id": "1",
         "name": "test1",
         "price": 1.00,
-        "status": "VALID",
+        "amount": 1,
       },
       {
         "id": "2",
         "name": "test2",
         "price": 1.00,
-        "status": "VALID",
+        "amount": 1,
       } ]
     total: 2.00
     status: "CREATED"
