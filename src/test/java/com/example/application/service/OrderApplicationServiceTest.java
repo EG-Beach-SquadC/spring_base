@@ -1,9 +1,7 @@
 package com.example.application.service;
 
-import com.example.application.assembler.OrderDtoMapper;
 import com.example.domain.repository.OrderRepository;
 import com.example.domain.repository.ProductRepository;
-import com.example.infrastructure.persistence.assembler.OrderDataMapper;
 import com.example.infrastructure.persistence.entity.OrderPo;
 import com.example.presentation.vo.OrderDto;
 import com.example.presentation.vo.OrderResponseDto;
@@ -15,22 +13,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import static com.example.constants.OrderFixture.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.example.constants.ProductFixture.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
 class OrderApplicationServiceTest {
-
-  private final OrderDataMapper dataMapper = OrderDataMapper.mapper;
-
-  private final OrderDtoMapper dtoMapper = OrderDtoMapper.mapper;
 
   @InjectMocks
   private OrderApplicationService orderApplicationService;
@@ -57,7 +50,7 @@ class OrderApplicationServiceTest {
 
   @Test
   void should_create_order() {
-    when(productRepository.countTotal(any())).thenReturn(BigDecimal.TEN);
+    when(productRepository.findProductByID(any())).thenReturn(List.of(PRODUCT_PO1));
     when(orderRepository.save(any())).thenReturn(ORDER1);
 
     OrderResponseDto orderResponse = orderApplicationService.createOrder(ORDER_REQUEST_1);
@@ -79,4 +72,28 @@ class OrderApplicationServiceTest {
     verify(orderRepository, times(1)).findByOrderId(any());
   }
 
+  @Test
+  void should_return_false_when_give_a_product_list_contain_invalid_one() {
+    when(productRepository.findProductByID(any())).thenReturn(List.of(PRODUCT_PO_INVALID));
+
+    assertThrows(RuntimeException.class,
+        () -> orderApplicationService.createOrder(ORDER_REQUEST_INVALID));
+  }
+
+  @Test
+  void should_return_false_when_give_a_product_list_contain_invalid_product_id() {
+    when(productRepository.findProductByID(any())).thenReturn(List.of(PRODUCT_PO2));
+
+    assertThrows(RuntimeException.class,
+        () -> orderApplicationService.createOrder(ORDER_REQUEST_INVALID));
+  }
+
+  @Test
+  void should_return_false_when_give_a_product_list_contain_no_price_product() {
+    when(productRepository.findProductByID(any()))
+        .thenReturn(List.of(PRODUCT_PO1, PRODUCT_PO_WITHOUT_PRICE));
+
+    assertThrows(RuntimeException.class,
+        () -> orderApplicationService.createOrder(ORDER_REQUEST_INVALID));
+  }
 }

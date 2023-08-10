@@ -3,6 +3,7 @@ package com.example.infrastructure.persistence.repository.domain;
 import com.example.domain.entity.OrderedProduct;
 import com.example.domain.entity.Product;
 import com.example.infrastructure.persistence.assembler.ProductDataMapper;
+import com.example.infrastructure.persistence.entity.ProductPo;
 import com.example.infrastructure.persistence.repository.JpaProductRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,8 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.constants.ProductFixture.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,40 +50,14 @@ class ProductDomainRepositoryTest {
   }
 
   @Test
-  void should_count_total_when_give_a_product_list() {
+  void should_find_product_when_give_a_product_list() {
     List<OrderedProduct> orderedProducts = List.of(ORDERED_PRODUCT_1, ORDERED_PRODUCT_2);
     when(jpaProductRepository.findAllById(any())).thenReturn(List.of(PRODUCT_PO1, PRODUCT_PO2));
 
-    BigDecimal total = productDomainRepository.countTotal(orderedProducts);
+    List<ProductPo> productList = productDomainRepository
+        .findProductByID(orderedProducts.stream().map(p -> p.getId()).collect(Collectors.toList()));
 
-    assertEquals(2.00, total.doubleValue());
-  }
-
-  @Test
-  void should_throw_exception_when_give_a_product_list_contain_invalid_one() {
-    List<OrderedProduct> orderedProducts = List.of(ORDERED_PRODUCT_1, ORDERED_PRODUCT_INVALID);
-    when(jpaProductRepository.findAllById(any()))
-        .thenReturn(List.of(PRODUCT_PO1, PRODUCT_PO_INVALID));
-
-    assertThrows(RuntimeException.class, () -> productDomainRepository.countTotal(orderedProducts));
-  }
-
-  @Test
-  void should_throw_exception_when_give_a_product_list_contain_invalid_product_id() {
-    List<OrderedProduct> orderedProducts =
-        List.of(ORDERED_PRODUCT_WITH_INVALID_ID, ORDERED_PRODUCT_2);
-    when(jpaProductRepository.findAllById(any())).thenReturn(List.of(PRODUCT_PO2));
-
-    assertThrows(RuntimeException.class, () -> productDomainRepository.countTotal(orderedProducts));
-  }
-
-  @Test
-  void should_throw_exception_when_give_a_product_list_contain_no_price_product() {
-    List<OrderedProduct> orderedProducts = List.of(ORDERED_PRODUCT_1, ORDERED_PRODUCT_2);
-    when(jpaProductRepository.findAllById(any()))
-        .thenReturn(List.of(PRODUCT_PO1, PRODUCT_PO_WITHOUT_PRICE));
-
-    assertThrows(RuntimeException.class, () -> productDomainRepository.countTotal(orderedProducts));
+    assertEquals(productList.size(), orderedProducts.size());
   }
 
 }

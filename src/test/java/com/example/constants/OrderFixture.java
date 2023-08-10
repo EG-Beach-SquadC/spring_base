@@ -34,4 +34,7 @@ public class OrderFixture {
 
   public final static OrderRequestDto ORDER_REQUEST_1 = new OrderRequestDto("test",
       List.of(new OrderedProduct("id-1", "customer-1", BigDecimal.ONE, 1)));
+
+  public final static OrderRequestDto ORDER_REQUEST_INVALID = new OrderRequestDto("test",
+      List.of(new OrderedProduct("id-3", "customer-1", BigDecimal.ONE, 1)));
 }
