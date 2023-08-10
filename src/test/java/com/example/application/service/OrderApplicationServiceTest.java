@@ -4,10 +4,13 @@ import com.example.application.assembler.OrderDtoMapper;
 import com.example.domain.repository.OrderRepository;
 import com.example.domain.repository.ProductRepository;
 import com.example.infrastructure.persistence.assembler.OrderDataMapper;
+import com.example.infrastructure.persistence.entity.OrderPo;
 import com.example.presentation.vo.OrderDto;
 import com.example.presentation.vo.OrderResponseDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -38,6 +41,9 @@ class OrderApplicationServiceTest {
   @Mock
   private ProductRepository productRepository;
 
+  @Captor
+  private ArgumentCaptor<OrderPo> captor;
+
   @Test
   void should_return_all_orders_when_orders_exist_in_repo() {
     when(orderRepository.findAllByCustomerId(CUSTOMER_ID)).thenReturn(List.of(ORDER1, ORDER2));
@@ -57,6 +63,9 @@ class OrderApplicationServiceTest {
     OrderResponseDto orderResponse = orderApplicationService.createOrder(ORDER_REQUEST_1);
 
     assertEquals("id-1", orderResponse.getId());
+    verify(orderRepository, times(1)).save(captor.capture());
+    String expected = "[{\"id\":\"id-1\",\"name\":\"customer-1\",\"price\":1,\"amount\":1}]";
+    assertEquals(expected, captor.getValue().getProducts());
   }
 
   @Test
